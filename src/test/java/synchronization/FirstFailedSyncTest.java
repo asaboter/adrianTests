@@ -1,6 +1,5 @@
-package Synchronization;
+package synchronization;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -8,11 +7,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import static org.junit.Assert.assertThat;
 
-public class FirstSyncTest {
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+
+public class FirstFailedSyncTest {
     static WebDriver driver;
     private static String url = "http://demos.telerik.com/aspnet-ajax/ajaxloadingpanel/functionality/explicit-show-hide/defaultcs.aspx";
 
@@ -25,14 +25,7 @@ public class FirstSyncTest {
     }
 
     @Test
-    public void FirstSyncTest() {
-        //Declare a Webdriver Wait
-        WebDriverWait wait = new WebDriverWait(driver,10);
-
-        //Wait until presence of container
-        wait.until(ExpectedConditions.presenceOfElementLocated
-                (By.cssSelector(".demo-container.size-narrow")));
-
+    public void FirstFailedSyncTest() {
         //Get the selected date text before AJAX call
         String selectedDateTextBeforeAjaxCall = driver.findElement
                 (By.cssSelector("#ctl00_ContentPlaceholder1_Label1")).getText().trim();
@@ -41,21 +34,12 @@ public class FirstSyncTest {
         System.out.println("selectedDateTextBeforeAjaxCall: " + selectedDateTextBeforeAjaxCall +"\n" );
 
         //Find 3rd January on the calendar
-        WebElement thirdOfJanuary = driver.findElement(By.xpath(".//*[contains(@class, 'rcWeekend')]/a[.='3']"));
+        WebElement thirdJanuary = driver.findElement(By.xpath(".//*[contains(@class, 'rcWeekend')]/a[.='3']"));
 
         //Click 3rd January
-        thirdOfJanuary.click();
+        thirdJanuary.click();
 
-        //Wait until invisibility of loader
-        new WebDriverWait(driver,10).until(
-                ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".raDiv")));
-
-        //Wait until visibility of selected date text
-        //Actually it is not necessary, I added this control to see an example of visibilityOfElementLocated usage.
-        new WebDriverWait(driver,10).until(
-                ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#ctl00_ContentPlaceholder1_Label1")));
-
-        //Find Selected Dates Text
+        //Get the selected date text after AJAX call
         String selectedDateTextAfterAjaxCall = driver.findElement(
                 By.cssSelector("#ctl00_ContentPlaceholder1_Label1")).getText().trim();
 
@@ -63,7 +47,7 @@ public class FirstSyncTest {
         System.out.println("selectedDateTextAfterAjaxCall: " + selectedDateTextAfterAjaxCall +"\n" );
 
         //Check the Actual and Expected Text
-        assertThat(selectedDateTextAfterAjaxCall, CoreMatchers.is("Saturday, September 03, 2016"));
+        assertThat(selectedDateTextAfterAjaxCall, is("Saturday, September 03, 2016"));
     }
 
     //Close Driver
@@ -71,5 +55,4 @@ public class FirstSyncTest {
     public static void quitDriver() {
         driver.quit();
     }
-
 }

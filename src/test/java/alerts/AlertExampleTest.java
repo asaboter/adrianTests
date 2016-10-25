@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 

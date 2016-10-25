@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="alerts">
+    <test name="Alert example test">
+        <classes>
+            <class name="alerts.AlertExampleTest" />
+        </classes>
+    </test>
+    <test name="Confirm test">
+        <classes>
+            <class name="alerts.ConfirmTest" />
+        </classes>
+    </test>
+    <test name="Prompt test">
+        <classes>
+            <class name="alerts.PromptTest" />
+        </classes>
+    </test>
+</suite>
