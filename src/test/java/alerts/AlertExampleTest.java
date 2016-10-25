@@ -6,7 +6,9 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 import static org.hamcrest.core.Is.is;
@@ -19,7 +21,9 @@ public class AlertExampleTest {
     //Setup Driver
     @BeforeClass
     public static void setupTest() {
-        driver = new FirefoxDriver();
+        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+        capabilities.setCapability("marionette", false);
+        driver = new FirefoxDriver(capabilities);
     }
 
     @Test
